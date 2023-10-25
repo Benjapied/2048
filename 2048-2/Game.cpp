@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Grid.h"
 #include <conio.h>
 #include <iostream>
 
@@ -8,7 +7,6 @@ using namespace std;
 Game::Game()
 {
     this->iPoints = 0;
-    this->gGameGrid.InitiateGrid();
 }
 
 void Game::GameLoop()

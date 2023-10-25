@@ -7,6 +7,7 @@ using namespace std;
 Grid::Grid()
 {
     this->bIsFull = false;
+    this->cGrid = new Case[16];
 }
 
 int Grid::BiToMono(int x, int y)
@@ -17,9 +18,7 @@ int Grid::BiToMono(int x, int y)
 
 int* Grid::MonoToBi(int i)
 {
-    int* array;
-    array[0] = i / 4;
-    array[1] = i % 4;
+    int array[2] = { i / 4,i % 4 };
     return array;
 }
 
@@ -27,12 +26,6 @@ int Grid::Rnd(int n)
 {
     int iNumber = rand() % n;
     return iNumber;
-}
-
-void Grid::InitiateGrid()
-{
-    cGrid = new Case[16];
-
 }
 
 /*
