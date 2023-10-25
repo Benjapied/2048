@@ -7,7 +7,7 @@ using namespace std;
 Grid::Grid()
 {
     this->bIsFull = false;
-    this->cGrid = new Case[16];
+    this->cGrid = (Case**) malloc(sizeof(Case*) * 16);
 }
 
 int Grid::BiToMono(int x, int y)
@@ -28,7 +28,12 @@ int Grid::Rnd(int n)
     return iNumber;
 }
 
-/*
+void Grid::InitGrid() {
+    for (int i = 0; i < 16; i++) {
+        this->cGrid[i] = new Case();
+    }
+}
+
 void Grid::DeleteGrid()
 {
     for (int i = 0; i < 16; i++) {
@@ -36,7 +41,7 @@ void Grid::DeleteGrid()
     }
     free(cGrid);
 
-}*/
+}
 
 void Grid::PrintGrid()
 {
@@ -58,7 +63,7 @@ void Grid::PrintGrid()
                     std::cout << "|";
                 else
                 {
-                    std::cout << this->cGrid[iCaseNb].iValue;
+                    std::cout << this->cGrid[iCaseNb]->iValue;
                     iCaseNb++;
                 }
             }
@@ -70,7 +75,7 @@ void Grid::PrintGrid()
 int Grid::MoveLeft(int iIndex)
 {
 
-    if (this->cGrid[iIndex - 1].iValue == 0 && iIndex % 4 != 0)
+    if (this->cGrid[iIndex - 1]->iValue == 0 && iIndex % 4 != 0)
     {
         return this->MoveLeft(iIndex - 1);
     }
@@ -87,8 +92,10 @@ vector<int> Grid::ListEmptyCases()
 
     for (int i = 0; i < 16; i++)
     {
-        if (this->cGrid[i].iValue == 0)
+        std::cout << this->cGrid[i]->iValue;
+        if (this->cGrid[i]->iValue == 0) {
             vAray.push_back(i);
+        }
     }
 
     return vAray;
@@ -100,17 +107,17 @@ void Grid::RandNumber()
     int iSize = iTab.size();
     int iRandomNumber = iTab[this->Rnd(iSize)];
 
-    this->cGrid[iRandomNumber].iValue = 2;
+    this->cGrid[iRandomNumber]->iValue = 2;
 }
 
 Case& Grid::operator[](int index)
 {
-    return cGrid[index];
+    return *cGrid[index];
 }
 
 bool Grid::isFull() {
     for (int i = 0; i < 16; i++) {
-        if (this->cGrid[i].iValue == 0) {
+        if (this->cGrid[i]->iValue == 0) {
             return false;
         }
     }

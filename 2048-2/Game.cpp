@@ -28,15 +28,15 @@ void Game::GameLoop()
         {
             for (int i = 0; i < 16; i++)
             {
-                if (i % 4 != 0 && this->gGameGrid.cGrid[i].iValue != 0)
+                if (i % 4 != 0 && this->gGameGrid[i].iValue != 0)
                 {
                     iNewIndex = this->gGameGrid.MoveLeft(i);
-                    this->gGameGrid.cGrid[iNewIndex].iValue = this->gGameGrid.cGrid[i].iValue;
-                    this->gGameGrid.cGrid[i].iValue = 0;
-                    if (iNewIndex % 4 != 0 && this->gGameGrid.cGrid[iNewIndex - 1].iValue == this->gGameGrid.cGrid[iNewIndex].iValue)
+                    this->gGameGrid[iNewIndex].iValue = this->gGameGrid[i].iValue;
+                    this->gGameGrid[i].iValue = 0;
+                    if (iNewIndex % 4 != 0 && this->gGameGrid[iNewIndex - 1].iValue == this->gGameGrid[iNewIndex].iValue)
                     {
-                        this->gGameGrid.cGrid[iNewIndex - 1].iValue *= 2;
-                        this->gGameGrid.cGrid[iNewIndex].iValue = 0;
+                        this->gGameGrid[iNewIndex - 1].iValue *= 2;
+                        this->gGameGrid[iNewIndex].iValue = 0;
                     }
                 }
             }

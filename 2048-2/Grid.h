@@ -5,7 +5,7 @@ class Grid
 {
 public:
     bool bIsFull;
-    Case* cGrid;
+    Case** cGrid;
 
     Grid();
 
@@ -14,8 +14,10 @@ public:
     int* MonoToBi(int i);
     
     int Rnd(int n);
+
+    void InitGrid();
     
-    //void DeleteGrid();
+    void DeleteGrid();
    
     void PrintGrid();
 
