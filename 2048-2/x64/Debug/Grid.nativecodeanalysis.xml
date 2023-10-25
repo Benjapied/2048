@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\benar\source\repos\2048-2\2048-2\</FILEPATH>
+      <FILENAME>Grid.cpp</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>La variable 'Grid::cGrid' n'est pas initialisée. Initialisez toujours une variable membre (type.6).</DESCRIPTION>
+    <FUNCTION>Grid::{ctor}</FUNCTION>
+    <DECORATED>??0Grid@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Grid::cGrid</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\benar\source\repos\2048-2\2048-2\</FILEPATH>
+      <FILENAME>Grid.cpp</FILENAME>
+      <LINE>21</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Utilisation de la mémoire non initialisée 'array'.</DESCRIPTION>
+    <FUNCTION>Grid::MonoToBi</FUNCTION>
+    <DECORATED>?MonoToBi@Grid@@QEAAPEAHH@Z</DECORATED>
+    <FUNCLINE>18</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>C:\Users\benar\source\repos\2048-2\2048-2\</FILEPATH>
+        <FILENAME>Grid.cpp</FILENAME>
+        <LINE>20</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'array' n'est pas initialisé</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\benar\source\repos\2048-2\2048-2\</FILEPATH>
+        <FILENAME>Grid.cpp</FILENAME>
+        <LINE>21</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\benar\source\repos\2048-2\2048-2\</FILEPATH>
+        <FILENAME>Grid.cpp</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\benar\source\repos\2048-2\2048-2\</FILEPATH>
+        <FILENAME>Grid.cpp</FILENAME>
+        <LINE>23</LINE>
+        <COLUMN>4</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\benar\source\repos\2048-2\2048-2\</FILEPATH>
+        <FILENAME>Grid.cpp</FILENAME>
+        <LINE>21</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'array' est utilisé, mais n'a peut-être pas été initialisé</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

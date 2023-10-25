@@ -1,0 +1,204 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "La variable 'Grid::cGrid' n'est pas initialisée. Initialisez toujours une variable membre (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/benar/source/repos/2048-2/2048-2/Grid.cpp"
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 7,
+                  "endLine": 7,
+                  "endColumn": 7
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Grid::{ctor}",
+                  "decoratedName": "??0Grid@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "Grid::cGrid"
+          }
+        },
+        {
+          "ruleId": "C6001",
+          "message": {
+            "text": "Utilisation de la mémoire non initialisée 'array'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/benar/source/repos/2048-2/2048-2/Grid.cpp"
+                },
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 5,
+                  "endLine": 21,
+                  "endColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Grid::MonoToBi",
+                  "decoratedName": "?MonoToBi@Grid@@QEAAPEAHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/benar/source/repos/2048-2/2048-2/Grid.cpp"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "startColumn": 10
+                          }
+                        },
+                        "message": {
+                          "text": "'array' n'est pas initialisé"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/benar/source/repos/2048-2/2048-2/Grid.cpp"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/benar/source/repos/2048-2/2048-2/Grid.cpp"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/benar/source/repos/2048-2/2048-2/Grid.cpp"
+                          },
+                          "region": {
+                            "startLine": 23,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/benar/source/repos/2048-2/2048-2/Grid.cpp"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 5
+                          }
+                        },
+                        "message": {
+                          "text": "'array' est utilisé, mais n'a peut-être pas été initialisé"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.34.31942.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Users/benar/source/repos/2048-2/2048-2/Grid.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "51d5bd8d6eb51b703dde19f6af32a60754654f6da84d895108024845243bc825"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/benar/source/repos/2048-2/2048-2/grid.h"
+          },
+          "hashes": {
+            "sha-256": "f3cfce36ea4a38a3e6fc4872fbc1a98f39190cccaa3783887fc098667544d26a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/benar/source/repos/2048-2/2048-2/case.h"
+          },
+          "hashes": {
+            "sha-256": "2a098d6b1d482c4332fb0b995e764b7e6d58e6c4fff428b8484564966d7ce9b5"
+          }
+        }
+      ]
+    }
+  ]
+}
