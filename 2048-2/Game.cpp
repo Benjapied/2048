@@ -12,52 +12,68 @@ Game::Game()
 
 void Game::GameLoop()
 {
-    int iNewIndex;
+    int iNewIndex, iTemp, iAsciiValue, iScore = 0;
     char sKey;
-    int iAsciiValue;
     bool bIsGame = true;
+    int direction[2];
+
+    this->gGameGrid.RandNumber();
+    this->gGameGrid.PrintGrid();
+
     while (bIsGame) {
 
-        this->gGameGrid.RandNumber();
+        direction[0] = 0;
+        direction[1] = 0;
 
-        this->gGameGrid.PrintGrid();
+
+        std::cout << "Score :" << iScore << "\n";
+        
 
         sKey = _getch();
         iAsciiValue = sKey;
 
         if (iAsciiValue == 75)
         {
-            for (int i = 0; i < 16; i++)
-            {
-                if (i % 4 != 0 && this->gGameGrid[i].iValue != 0)
-                {
-                    iNewIndex = this->gGameGrid.MoveLeft(i);
-                    int iTemp = this->gGameGrid[i].iValue;
-                    this->gGameGrid[i].iValue = 0;
-                    this->gGameGrid[iNewIndex].iValue = iTemp;
-                    
-                    if (iNewIndex % 4 != 0 && this->gGameGrid[iNewIndex - 1].iValue == this->gGameGrid[iNewIndex].iValue)
+            direction[0] = -1;
+            direction[1] = 0;
+        }
+
+        else if (iAsciiValue == 77) 
+        {
+            direction[0] = 1;
+            direction[1] = 0;
+        }
+            
+        else if (iAsciiValue == 80)
+        {
+            direction[0] = 0;
+            direction[1] = 1;
+        }
+           
+        else if (iAsciiValue == 72)
+        {
+            direction[0] = 0;
+            direction[1] = -1;
+        }
+           
+        if (iAsciiValue == 72 || iAsciiValue == 77 || iAsciiValue == 75 || iAsciiValue == 80) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if (this->gGameGrid.cGrid[this->gGameGrid.BiToMono(i,j)]->iValue != 0)
                     {
-                        this->gGameGrid[iNewIndex - 1].iValue *= 2;
-                        this->gGameGrid[iNewIndex].iValue = 0;
+                        iNewIndex = this->gGameGrid.Move(i, j, direction[0], direction[1]);
+                        iTemp = this->gGameGrid.cGrid[this->gGameGrid.BiToMono(i, j)]->iValue;
+                        this->gGameGrid.cGrid[this->gGameGrid.BiToMono(i, j)]->iValue = 0;
+                        this->gGameGrid.cGrid[iNewIndex]->iValue = iTemp;
                     }
                 }
             }
+            system("cls");
+            this->gGameGrid.PrintGrid();
         }
-
-        else if (iAsciiValue == 77)
-            std::cout << "Pressed right \n";
-
-        else if (iAsciiValue == 80)
-            std::cout << "Pressed down \n";
-
-        else if (iAsciiValue == 72)
-            std::cout << "Pressed up \n";
-
+        
         if (iAsciiValue == 27)
             bIsGame = false;
-
-        system("cls");
 
         if (this->gGameGrid.isFull() == true) {
             break;
@@ -66,4 +82,4 @@ void Game::GameLoop()
     }
     cout << "You loose";
     //this->gGameGrid.DeleteGrid();
-}
+};

@@ -1,6 +1,7 @@
 #include "Grid.h"
 #include <vector>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -12,13 +13,13 @@ Grid::Grid()
 
 int Grid::BiToMono(int x, int y)
 {
-    int result = x * 4 + y;
+    int result = y * 4 + x;
     return result;
 }
 
 int* Grid::MonoToBi(int i)
 {
-    int array[2] = { i / 4,i % 4 };
+    int array[2] = { i % 4 ,i / 4 };
     return array;
 }
 
@@ -72,16 +73,38 @@ void Grid::PrintGrid()
     }
 }
 
-int Grid::MoveLeft(int iIndex)
-{
 
-    if (this->cGrid[iIndex - 1]->iValue == 0 && iIndex % 4 != 0)
+int Grid::Move(int x, int y, int directionX, int directionY)
+{
+    std::cout << "test" << std::endl;
+    if (x + directionX > 3 || x + directionX <= 0 || y + directionY > 3 || y + directionY <= 0) {
+        //Stop condition: if the tile targeted can't move because of a wall, we return
+        return this->BiToMono(x, y);
+    }
+    int iNewX = x + directionX;
+    int iNewY = y + directionY;
+    std::cout << directionX << ' ' << directionY << std::endl;
+
+    
+    if (this->cGrid[this->BiToMono(iNewX, iNewY)]->iValue == this->cGrid[this->BiToMono(x, y)]->iValue)
     {
-        return this->MoveLeft(iIndex - 1);
+        std::cout << "fusion" << std::endl;
+        //Stop condition: if the tile can be merged, we merge and return
+        this->cGrid[this->BiToMono(iNewX, iNewY)]->iValue *= 2;
+        this->cGrid[this->BiToMono(x, y)]->iValue = 0;
+        return this->BiToMono(x, y);
+    }
+    else if (this->cGrid[this->BiToMono(iNewX, iNewY)]->iValue != 0)
+    {
+        std::cout << "tile blocks" << std::endl;
+        //Stop condition: if the tile targeted cant move because of another tile, we return
+        return this->BiToMono(x, y);
     }
     else
     {
-        return iIndex;
+        std::cout << "recursion" << std::endl;
+        //Recursion
+        return this->Move(iNewX, iNewY, directionX, directionY);
     }
 }
 
@@ -92,7 +115,6 @@ vector<int> Grid::ListEmptyCases()
 
     for (int i = 0; i < 16; i++)
     {
-        std::cout << this->cGrid[i]->iValue;
         if (this->cGrid[i]->iValue == 0) {
             vAray.push_back(i);
         }

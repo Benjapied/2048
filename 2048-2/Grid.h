@@ -1,5 +1,6 @@
 #include "Case.h"
 #include <vector>
+#include <string>
 
 class Grid
 {
@@ -21,7 +22,7 @@ public:
    
     void PrintGrid();
 
-    int MoveLeft(int iIndex);
+    int Move(int x, int y, int directionX, int directionY);
 
     std::vector<int> ListEmptyCases();
 
