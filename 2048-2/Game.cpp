@@ -7,6 +7,7 @@ using namespace std;
 Game::Game()
 {
     this->iPoints = 0;
+    this->gGameGrid.InitGrid();
 }
 
 void Game::GameLoop()
@@ -31,8 +32,10 @@ void Game::GameLoop()
                 if (i % 4 != 0 && this->gGameGrid[i].iValue != 0)
                 {
                     iNewIndex = this->gGameGrid.MoveLeft(i);
-                    this->gGameGrid[iNewIndex].iValue = this->gGameGrid[i].iValue;
+                    int iTemp = this->gGameGrid[i].iValue;
                     this->gGameGrid[i].iValue = 0;
+                    this->gGameGrid[iNewIndex].iValue = iTemp;
+                    
                     if (iNewIndex % 4 != 0 && this->gGameGrid[iNewIndex - 1].iValue == this->gGameGrid[iNewIndex].iValue)
                     {
                         this->gGameGrid[iNewIndex - 1].iValue *= 2;

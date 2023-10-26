@@ -1,4 +1,2 @@
-﻿  Grid.cpp
-C:\Users\benar\source\repos\2048-2\2048-2\Grid.cpp(107,28): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
-C:\Users\benar\source\repos\2048-2\2048-2\Grid.cpp(22): warning C4172: retourne l'adresse d'une variable locale ou : array temporaire
-  2048-2.vcxproj -> C:\Users\benar\source\repos\2048-2\x64\Debug\2048-2.exe
+﻿  Game.cpp
+  2048-2.vcxproj -> C:\Users\barhancet\source\repos\2048-2\x64\Debug\2048-2.exe
