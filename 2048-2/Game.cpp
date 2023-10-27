@@ -12,19 +12,15 @@ Game::Game()
 
 void Game::GameLoop()
 {
-    int iNewIndex, iTemp, iAsciiValue, iScore = 0;
+    int iAsciiValue, iScore = 0;
     char sKey;
     bool bIsGame = true;
-    int direction[2];
 
     this->gGameGrid.RandNumber();
-    this->gGameGrid.PrintGrid();
 
     while (bIsGame) {
 
-        direction[0] = 0;
-        direction[1] = 0;
-
+        this->gGameGrid.PrintGrid();
 
         std::cout << "Score :" << iScore << "\n";
         
@@ -34,43 +30,41 @@ void Game::GameLoop()
 
         if (iAsciiValue == 75)
         {
-            direction[0] = -1;
-            direction[1] = 0;
+            for (int i = 0; i <= 3; i++) {
+                for (int j = 0; j < 4; j ++) {
+                    CheckCases(i, j, -1, 0);
+                }
+            }
         }
 
         else if (iAsciiValue == 77) 
         {
-            direction[0] = 1;
-            direction[1] = 0;
+            for (int i = 3; i >= 0; i--) {
+                for (int j = 0; j < 4; j++) {
+                    CheckCases(i, j, 1, 0);
+                }
+            }
         }
             
         else if (iAsciiValue == 80)
         {
-            direction[0] = 0;
-            direction[1] = 1;
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    CheckCases(i, j, 0, 1);
+                }
+            }
         }
            
         else if (iAsciiValue == 72)
         {
-            direction[0] = 0;
-            direction[1] = -1;
-        }
-           
-        if (iAsciiValue == 72 || iAsciiValue == 77 || iAsciiValue == 75 || iAsciiValue == 80) {
             for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    if (this->gGameGrid.cGrid[this->gGameGrid.BiToMono(i,j)]->iValue != 0)
-                    {
-                        iNewIndex = this->gGameGrid.Move(i, j, direction[0], direction[1]);
-                        iTemp = this->gGameGrid.cGrid[this->gGameGrid.BiToMono(i, j)]->iValue;
-                        this->gGameGrid.cGrid[this->gGameGrid.BiToMono(i, j)]->iValue = 0;
-                        this->gGameGrid.cGrid[iNewIndex]->iValue = iTemp;
-                    }
+                for (int j = 3; j >= 0; j--) {
+                    CheckCases(i, j, 0, -1);
                 }
             }
-            system("cls");
-            this->gGameGrid.PrintGrid();
         }
+           
+        system("cls");
         
         if (iAsciiValue == 27)
             bIsGame = false;
@@ -83,3 +77,22 @@ void Game::GameLoop()
     cout << "You loose";
     //this->gGameGrid.DeleteGrid();
 };
+
+void Game::CheckCases(int i, int j, int iDirectionX, int iDirectionY)
+{
+    int iNewIndex;
+    int iTemp;
+    if (this->gGameGrid.cGrid[this->gGameGrid.BiToMono(i, j)]->iValue != 0)
+    {
+        iNewIndex = this->gGameGrid.Move(i, j,  iDirectionX, iDirectionY);
+        iTemp = this->gGameGrid.BiToMono(i, j);
+        SwapCases(iTemp, iNewIndex);
+    }
+}
+
+void Game::SwapCases(int i, int j)
+{
+    Case* temp = this->gGameGrid.cGrid[i];
+    this->gGameGrid.cGrid[i] = this->gGameGrid.cGrid[j];
+    this->gGameGrid.cGrid[j] = temp;
+}

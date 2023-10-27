@@ -64,8 +64,16 @@ void Grid::PrintGrid()
                     std::cout << "|";
                 else
                 {
-                    std::cout << this->cGrid[iCaseNb]->iValue;
-                    iCaseNb++;
+                    if (this->cGrid[iCaseNb]->iValue != 0)
+                    {
+                        std::cout << this->cGrid[iCaseNb]->iValue;
+                        iCaseNb++;
+                    }
+                    else
+                    {
+                        std::cout << " ";
+                    }
+                    
                 }
             }
         }
@@ -76,19 +84,16 @@ void Grid::PrintGrid()
 
 int Grid::Move(int x, int y, int directionX, int directionY)
 {
-    std::cout << "test" << std::endl;
-    if (x + directionX > 3 || x + directionX <= 0 || y + directionY > 3 || y + directionY <= 0) {
+    if (x + directionX > 3 || x + directionX < 0 || y + directionY > 3 || y + directionY < 0) {
         //Stop condition: if the tile targeted can't move because of a wall, we return
         return this->BiToMono(x, y);
     }
     int iNewX = x + directionX;
     int iNewY = y + directionY;
-    std::cout << directionX << ' ' << directionY << std::endl;
 
     
     if (this->cGrid[this->BiToMono(iNewX, iNewY)]->iValue == this->cGrid[this->BiToMono(x, y)]->iValue)
     {
-        std::cout << "fusion" << std::endl;
         //Stop condition: if the tile can be merged, we merge and return
         this->cGrid[this->BiToMono(iNewX, iNewY)]->iValue *= 2;
         this->cGrid[this->BiToMono(x, y)]->iValue = 0;
@@ -96,13 +101,11 @@ int Grid::Move(int x, int y, int directionX, int directionY)
     }
     else if (this->cGrid[this->BiToMono(iNewX, iNewY)]->iValue != 0)
     {
-        std::cout << "tile blocks" << std::endl;
         //Stop condition: if the tile targeted cant move because of another tile, we return
         return this->BiToMono(x, y);
     }
     else
     {
-        std::cout << "recursion" << std::endl;
         //Recursion
         return this->Move(iNewX, iNewY, directionX, directionY);
     }
@@ -144,4 +147,11 @@ bool Grid::isFull() {
         }
     }
     return true;
+}
+
+void Grid::SwapCases(int i, int j)
+{
+    Case* temp = this->cGrid[i];
+    this->cGrid[i] = this->cGrid[j];
+    this->cGrid[j] = temp;
 }

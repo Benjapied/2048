@@ -31,4 +31,6 @@ public:
     Case& operator[](int index);
 
     bool isFull(); 
+
+    void SwapCases(int i, int j);
 };
