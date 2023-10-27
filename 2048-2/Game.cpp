@@ -15,6 +15,7 @@ void Game::GameLoop()
     int iAsciiValue, iScore = 0;
     char sKey;
     bool bIsGame = true;
+    bool isWin = false;
 
     this->gGameGrid.RandNumber();
 
@@ -30,38 +31,46 @@ void Game::GameLoop()
 
         if (iAsciiValue == 75)
         {
+            //Left
             for (int i = 0; i <= 3; i++) {
                 for (int j = 0; j < 4; j ++) {
                     CheckCases(i, j, -1, 0);
                 }
             }
+            this->gGameGrid.RandNumber();
         }
 
         else if (iAsciiValue == 77) 
         {
+            //Right
             for (int i = 3; i >= 0; i--) {
                 for (int j = 0; j < 4; j++) {
                     CheckCases(i, j, 1, 0);
                 }
             }
+            this->gGameGrid.RandNumber();
         }
             
         else if (iAsciiValue == 80)
         {
+            //Down
             for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
+                for (int j = 3; j >= 0; j--) {
                     CheckCases(i, j, 0, 1);
                 }
             }
+            this->gGameGrid.RandNumber();
         }
            
         else if (iAsciiValue == 72)
         {
+            //Up
             for (int i = 0; i < 4; i++) {
-                for (int j = 3; j >= 0; j--) {
+                for (int j = 0; j < 4; j++) {
                     CheckCases(i, j, 0, -1);
                 }
             }
+            this->gGameGrid.RandNumber();
         }
            
         system("cls");
@@ -69,13 +78,23 @@ void Game::GameLoop()
         if (iAsciiValue == 27)
             bIsGame = false;
 
-        if (this->gGameGrid.isFull() == true) {
+        if (this->gGameGrid.Win() == true)
+        {
+            isWin = true;
             break;
         }
 
+        this->gGameGrid.MergeFalse();
+
     }
-    cout << "You loose";
-    //this->gGameGrid.DeleteGrid();
+    if (isWin == false)
+    {
+        cout << "You loose";
+    }
+    else
+    {
+        std::cout << "You won !";
+    }
 };
 
 void Game::CheckCases(int i, int j, int iDirectionX, int iDirectionY)
@@ -84,7 +103,7 @@ void Game::CheckCases(int i, int j, int iDirectionX, int iDirectionY)
     int iTemp;
     if (this->gGameGrid.cGrid[this->gGameGrid.BiToMono(i, j)]->iValue != 0)
     {
-        iNewIndex = this->gGameGrid.Move(i, j,  iDirectionX, iDirectionY);
+        iNewIndex = this->gGameGrid.Move(i, j, i, j, iDirectionX, iDirectionY);
         iTemp = this->gGameGrid.BiToMono(i, j);
         SwapCases(iTemp, iNewIndex);
     }

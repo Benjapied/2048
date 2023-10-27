@@ -22,7 +22,7 @@ public:
    
     void PrintGrid();
 
-    int Move(int x, int y, int directionX, int directionY);
+    int Move(int x, int y, int xBase, int yBase, int directionX, int directionY);
 
     std::vector<int> ListEmptyCases();
 
@@ -33,4 +33,10 @@ public:
     bool isFull(); 
 
     void SwapCases(int i, int j);
+
+    void MergeFalse();
+
+    bool noPossibility();
+
+    bool Win();
 };

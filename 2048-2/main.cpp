@@ -10,7 +10,8 @@ int main()
     srand(time(NULL));
     Game game;
     game.GameLoop();
-    game.gGameGrid.DeleteGrid();
+
+
     return 0;
 }
 
