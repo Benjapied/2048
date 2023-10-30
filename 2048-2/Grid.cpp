@@ -9,6 +9,7 @@ Grid::Grid()
 {
     this->bIsFull = false;
     this->cGrid = (Case**) malloc(sizeof(Case*) * 16);
+    this->iScore = 0;
 }
 
 int Grid::BiToMono(int x, int y)
@@ -106,6 +107,7 @@ int Grid::Move(int x, int y, int xBase, int yBase, int directionX, int direction
         this->cGrid[this->BiToMono(iNewX, iNewY)]->iValue *= 2;
         this->cGrid[this->BiToMono(iNewX, iNewY)]->bMergable = true;
         this->cGrid[this->BiToMono(xBase, yBase)]->iValue = 0;
+        this->iScore += this->cGrid[this->BiToMono(iNewX, iNewY)]->iValue;
         return this->BiToMono(xBase, yBase);
     }
     else if (this->cGrid[this->BiToMono(iNewX, iNewY)]->iValue != 0)
@@ -137,19 +139,23 @@ vector<int> Grid::ListEmptyCases()
 
 void Grid::RandNumber()
 {
+    //Return a random number between 2 and 4
     vector<int> iTab = this->ListEmptyCases();
     int iSize = iTab.size();
     int iRandomNumber = iTab[this->Rnd(iSize)];
 
-    this->cGrid[iRandomNumber]->iValue = 2;
+    this->cGrid[iRandomNumber]->iValue = this->Rand2or4();
 }
 
 Case& Grid::operator[](int index)
 {
+    //Operetor which replace this->Gamegrid->grid[] by this->Gamegrid[]
     return *cGrid[index];
 }
 
-bool Grid::isFull() {
+bool Grid::isFull() 
+{
+    //Return true if the grid is full
     for (int i = 0; i < 16; i++) {
         if (this->cGrid[i]->iValue == 0) {
             return false;
@@ -160,6 +166,7 @@ bool Grid::isFull() {
 
 void Grid::SwapCases(int i, int j)
 {
+    //Swap the position of i and j in the grid
     Case* temp = this->cGrid[i];
     this->cGrid[i] = this->cGrid[j];
     this->cGrid[j] = temp;
@@ -167,6 +174,7 @@ void Grid::SwapCases(int i, int j)
 
 void Grid::MergeFalse()
 {
+    //Reset all the tiles as bMergable false
     for (int i = 0; i < 16; i++)
     {
         this->cGrid[i]->bMergable = false;
@@ -175,52 +183,41 @@ void Grid::MergeFalse()
 
 bool Grid::noPossibility()
 {   // Method from the grid class to check if there is still a movement possibility in the actual grid, returns true or false
-    
-    for (int l = 0; l < 16; l++)
-    {
-        if (l > 3 && this->cGrid[l]->iValue == this->cGrid[l - 4]->iValue)
-        {
-            return false;
-        }
-        else if (l < 12 && this->cGrid[l]->iValue == this->cGrid[l + 4]->iValue)
-        {
-            return false;
-        }
-        else if (l % 4 != 0 && this->cGrid[l]->iValue == this->cGrid[l - 1]->iValue)
-        {
-            return false;
-        }
-        else if ((l - 3) % 4 != 0 && this->cGrid[l]->iValue == this->cGrid[l + 1]->iValue)
-        {
-            return false;
-        }
-    }
-    return true;
 
-    int coo;
+    int iCoo;
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
         {
-            coo = this->BiToMono(i, j);
-            if (j >= 0 && this->cGrid[coo]->iValue == this->cGrid[this->BiToMono(0, -1)]->iValue)
+            iCoo = this->BiToMono(i, j);
+            
+            if (j-1 >= 0)
             {
-                return false;
+                if (j >= 0 && this->cGrid[iCoo]->iValue == this->cGrid[this->BiToMono(i , j - 1)]->iValue) {
+                    return false;
+                }
             }
-            else if (j <4 && this->cGrid[coo]->iValue == this->cGrid[this->BiToMono(0, 1)]->iValue)
+            if (j+1 < 4)
             {
-                return false;
+                if (j < 4 && this->cGrid[iCoo]->iValue == this->cGrid[this->BiToMono(i , j + 1)]->iValue) {
+                    return false;
+                }
             }
-            else if (i >= 0 && this->cGrid[coo]->iValue == this->cGrid[this->BiToMono(-1, 0)]->iValue)
+            if (i - 1 >= 0)
             {
-                return false;
+                if (i >= 0 && this->cGrid[iCoo]->iValue == this->cGrid[this->BiToMono(i - 1, j )]->iValue) {
+                    return false;
+                }
             }
-            else if (i < 4 && this->cGrid[coo]->iValue == this->cGrid[this->BiToMono(1, 0)]->iValue)
+            if (i + 1 <  4)
             {
-                return false;
+                if (i < 4 && this->cGrid[iCoo]->iValue == this->cGrid[this->BiToMono(i + 1, j )]->iValue) {
+                    return false;
+                }
             }
         }
     }
+    return true;
 }
 
 bool Grid::Win()
@@ -233,4 +230,13 @@ bool Grid::Win()
         }
     }
     return false;
+}
+
+int Grid::Rand2or4()
+{
+    //Return 2 or 4, 70% of dropping 2
+    int iNumber = rand() % 100;
+    if (iNumber < 70)
+        return 2;
+    return 4;
 }

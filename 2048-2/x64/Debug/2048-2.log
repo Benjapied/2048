@@ -1,2 +1,11 @@
 ﻿  Game.cpp
-  2048-2.vcxproj -> C:\Users\barhancet\source\repos\2048-2\x64\Debug\2048-2.exe
+  Grid.cpp
+C:\Users\benar\source\repos\2048-2\2048-2\Grid.cpp(143,28): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  Test.cpp
+C:\Users\benar\source\repos\2048-2\2048-2\Test.cpp(179,7): warning C4101: 'bVerified' : variable locale non référencée
+C:\Users\benar\source\repos\2048-2\2048-2\Test.cpp(218,7): warning C4101: 'bVerified' : variable locale non référencée
+  main.cpp
+C:\Users\benar\source\repos\2048-2\2048-2\main.cpp(10,15): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+  Génération de code en cours...
+C:\Users\benar\source\repos\2048-2\2048-2\Grid.cpp(24): warning C4172: retourne l'adresse d'une variable locale ou : array temporaire
+  2048-2.vcxproj -> C:\Users\benar\source\repos\2048-2\x64\Debug\2048-2.exe

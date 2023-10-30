@@ -10,7 +10,9 @@ int main()
     srand(time(NULL));
     Game game;
     game.GameLoop();
-
+    //Test test;
+    //test.LunchTests();
+    
 
     return 0;
 }

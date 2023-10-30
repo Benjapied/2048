@@ -12,7 +12,7 @@ Game::Game()
 
 void Game::GameLoop()
 {
-    int iAsciiValue, iScore = 0;
+    int iAsciiValue;
     char sKey;
     bool bIsGame = true;
     bool isWin = false;
@@ -21,10 +21,21 @@ void Game::GameLoop()
 
     while (bIsGame) {
 
+        std::cout << "Score :" << this->gGameGrid.iScore << "\n";
+
         this->gGameGrid.PrintGrid();
 
-        std::cout << "Score :" << iScore << "\n";
-        
+        if (this->gGameGrid.isFull() == true && this->gGameGrid.noPossibility() == true)
+        {
+            isWin = false;
+            break;
+        }
+
+        if (this->gGameGrid.Win() == true)
+        {
+            isWin = true;
+            break;
+        }
 
         sKey = _getch();
         iAsciiValue = sKey;
@@ -72,19 +83,13 @@ void Game::GameLoop()
             }
             this->gGameGrid.RandNumber();
         }
-           
+        
+        this->gGameGrid.MergeFalse();
+
         system("cls");
         
         if (iAsciiValue == 27)
             bIsGame = false;
-
-        if (this->gGameGrid.Win() == true)
-        {
-            isWin = true;
-            break;
-        }
-
-        this->gGameGrid.MergeFalse();
 
     }
     if (isWin == false)
@@ -95,6 +100,7 @@ void Game::GameLoop()
     {
         std::cout << "You won !";
     }
+    
 };
 
 void Game::CheckCases(int i, int j, int iDirectionX, int iDirectionY)

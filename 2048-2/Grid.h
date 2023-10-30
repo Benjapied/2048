@@ -7,6 +7,7 @@ class Grid
 public:
     bool bIsFull;
     Case** cGrid;
+    int iScore;
 
     Grid();
 
@@ -39,4 +40,6 @@ public:
     bool noPossibility();
 
     bool Win();
+
+    int Rand2or4();
 };
