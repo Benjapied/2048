@@ -139,6 +139,9 @@ vector<int> Grid::ListEmptyCases()
 
 void Grid::RandNumber()
 {
+    if (this->isFull() == true) {
+        return;
+    }
     //Return a random number between 2 and 4
     vector<int> iTab = this->ListEmptyCases();
     int iSize = iTab.size();
